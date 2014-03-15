@@ -26,7 +26,8 @@ var assert = require('assert');
 // remember that the order of the params of methods that checks for
 // equalitty is (ACTUAL, EXPECTED). Don't mess up (◕‿◕)
 
-describe('lol', function () {
+
+describe('sanity', function () {
     it('should go well', function () {
         assert.equal(!!typeof(insta_api), true);
     });

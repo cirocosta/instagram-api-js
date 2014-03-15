@@ -7,8 +7,13 @@
 
 ## Testing
 
+Testing is easy. **Just run** `npm test` and, hopefully, everything will go ok.
 
-## Flow de Autenticação
+The testing process is quite interesting as we use [jQuery](http://jquery.com/) in the API application (we intend to use this on the browser without having to worry with compatibility and etc) with a bunch of `$.ajax`. Check at `/tests` what is going on an then you may not need to read the docs (supposing that we did some great tests with an awesome coverage ʘ‿ʘ).
+
+## Authentication Flow
+
+Here it's presented the authentication flow that is described on the website. The purpose of putting this here is just to facilitate.
 
 Há dois tipos de flow de autenticação se tratando de oAuth2. O primeiro, dependente de um servidor, o segundo, independente (qualquer aplicação puramente clientside pode tomar proveito) - implicita.
 
@@ -50,7 +55,7 @@ que então retornará algo similar, caso haja sucesso na operação:
 }
 ```
 
-### Implícita
+### Implicit
 
 Há apenas dois passos a serem implementados nesta parte.
 

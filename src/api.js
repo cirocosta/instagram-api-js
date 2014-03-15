@@ -1,3 +1,4 @@
+
 /////////////////////
 ////////////////// //
 // KEEP IN MIND // //
@@ -20,6 +21,7 @@ var Objeto = {
         };
     }
 };
+
 
 (function (exports, $) {
     exports.api = Objeto.method;
