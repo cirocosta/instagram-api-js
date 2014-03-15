@@ -1,0 +1,16 @@
+{
+  "name": "api-instagram",
+  "version": "0.0.0",
+  "authors": [
+    "Ciro S. Costa <ciro.costa@usp.br>"
+  ],
+  "keywords": [
+    "api",
+    "instagram",
+    "js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "1.9.1"
+  }
+}
