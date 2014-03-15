@@ -73,3 +73,9 @@ Note que há o uso de hashbang (`#`) e não query params (`?param=value&...`) co
 |               | intencoes do usuario                                  |
 | relationships | seguir/deixar de seguir usuários                      |
 | likes         | dar like/unlike em itens                              |
+
+
+## Limitations
+
+Instagram limits the user requests up to 5000/hr per
+client_id/access_token overall. Otherwise, f*cking 503.
