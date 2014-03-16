@@ -34,7 +34,7 @@ var InstagramApi = function (clientId, redirUri) {
 
     this.clientId = clientId;
     this.redirUri = redirUri;
-}
+};
 
 InstagramApi.fn = InstagramApi.prototype = {
 
@@ -134,4 +134,4 @@ InstagramApi.fn.user = {
 
 (function (module, $) {
     module.exports = InstagramApi;
-})(typeof module === 'undefined' ? this['mymodule'] = {} : module, $);
+})(typeof module === 'undefined' ? this.mymodule = {} : module, $);
