@@ -69,7 +69,8 @@
 
                 var interval = setInterval(function () {
                     if (popupWin.closed) {
-                        alert('hasuhas');
+                        alert('closed');
+                        clearInterval(interval);
                     }
                 }, 2000);
 
