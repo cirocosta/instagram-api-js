@@ -1,4 +1,4 @@
-# Instagram API
+# Instagram API [![Build Status](https://travis-ci.org/cirocosta/instagram-api-js.png?branch=master)](https://travis-ci.org/cirocosta/instagram-api-js)
 
 > Javascript API for dealing with Instagram
 
@@ -14,7 +14,7 @@
 | liked  | what the authenticated user liked in terms of media |
 | search | searches for a user by name                         |
 
-`api.user.[METHOD]`.
+`api.user.[METHOD]`. (the wrapper for the `api.user` methods is not yet implemented. Will do it tomorrow. :neckbeard:
 
 
 ## Testing
