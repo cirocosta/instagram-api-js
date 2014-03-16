@@ -1,19 +1,18 @@
 {
   "name": "api-instagram",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
+  "version": "0.0.1",
+  "description": "Instagram's api for the browser and node w/ jquery",
+  "main": "src/api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests -R nyan"
   },
   "author": "Ciro S. Costa",
   "license": "MIT",
   "devDependencies": {
     "mocha": "~1.18.0",
     "sinon": "~1.9.0",
-    "jquery": "~2.1.0"
+    "xmlhttprequest": "~1.6.0",
+    "jsdom": "~0.10.3",
+    "jQuery": "~1.7.4"
   }
 }
