@@ -7,7 +7,77 @@
 
     <h1>Hello Example</h1>
 
+    <button class="cool-button">Hey, click here to log in</button>
+
     <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../src/api.js"></script>
+    <script type="text/javascript">
+
+    function getCookie (name) {
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            var N = cookies.length;
+            for (var i = 0; i < N; i++) {
+                var cookie = $.trim(cookies[i]);
+
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    return decodeURIComponent(cookie.substring(name.length + 1));
+                }
+            }
+        }
+        return;
+    }
+
+    function setCookie (name, value) {
+        if (document.cookie) {
+            document.cookie = name + "=" + value;
+        }
+    }
+
+    function getHash () {
+        return location.hash
+            ? location.hash.slice(1)
+            : '';
+    }
+
+    $(function () {
+
+        var hashStuff = getHash();
+
+        if (hashStuff) {
+
+            var accessToken = hashStuff.split('=')[1];
+            setCookie('atig', accessToken);
+            window.close();
+
+        } else {
+
+            var clientId = '9a146342344c44ec972b6ab06d54bda3';
+            var redirUri = 'http://localhost:8888/examples';
+            var api = new InstagramApi(clientId, redirUri);
+
+            $('.cool-button').click(function (e) {
+
+                var center = {
+                    x: $(window).width()/2,
+                    y: $(window).height()/2
+                };
+
+                var popupWin = window.open(api.getAuthUrl(),
+                                        "SignIn",
+                                        "width=500,height=300,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=" + center.x + ",top=" + center.y);
+
+                var interval = setInterval(function () {
+                    if (popupWin.closed) {
+                        alert('hasuhas');
+                    }
+                }, 2000);
+
+                return false;
+            });
+        }
+    });
+
+    </script>
 </body>
 </html>

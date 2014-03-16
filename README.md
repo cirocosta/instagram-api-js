@@ -4,6 +4,18 @@
 
 ## Quick Use
 
+### User
+
+| method |                     description                     |
+| ------ | --------------------------------------------------- |
+| info   | gets the basic user info                            |
+| feed   | get the feed of the authenticated                   |
+| media  | media of a user (both video and images)             |
+| liked  | what the authenticated user liked in terms of media |
+| search | searches for a user by name                         |
+
+`api.user.[METHOD]`.
+
 
 ## Testing
 
