@@ -28,7 +28,7 @@ var ERRORS = {
  * @param {String} redirUri the redirect uri configured for the
  *                          application at the InstagramAPI app manager.
  */
-function InstagramApi (clientId, redirUri) {
+var InstagramApi = function (clientId, redirUri) {
 
     if (!(clientId && redirUri)) throw new Error(ERRORS.no_cid_redir);
 
@@ -36,7 +36,7 @@ function InstagramApi (clientId, redirUri) {
     this.redirUri = redirUri;
 }
 
-InstagramApi.prototype = {
+InstagramApi.fn = InstagramApi.prototype = {
 
     /**
      * Authentication URL for the implicit authorization flow.
@@ -88,19 +88,49 @@ InstagramApi.prototype = {
      * @param  {Object} options     a options object for the $.ajax.
      * @return {$.Deferred}         a deferred object.
      */
-    getUserInfo: function (userId, accessToken, options) {
+    _getUserInfo: function (userId, accessToken, options) {
 
         if (!(userId && accessToken)) throw new Error(ERRORS.no_uid_at);
 
         return $.ajax({
             url: this._buildPath('user.info')
                         .replace(/USERID/, userId)
-                        .replace(/ACCESSTOKEN/, accessToken)
+                        .replace(/ACCESSTOKEN/, accessToken),
+            type: 'GET',
+            contentType: 'text/plain',
+            xhrFields: {
+                withCredentials: false
+            }
+        }, options);
+    },
+
+    _getUserMedia: function (userId, accessToken, options) {
+        if (!(userId && accessToken)) throw new Error(ERRORS.no_uid_at);
+
+        return $.ajax({
+            url: this._buildPath('user.media')
+                        .replace(/USERID/, userId)
+                        .replace(/ACCESSTOKEN/, accessToken),
         }, options);
     }
-
 };
 
+
+/**
+ * Wrapper for the functions that regards the User
+ * @type {Object}
+ */
+InstagramApi.fn.user = {
+    info: function () {
+        return InstagramApi.fn._getUserInfo
+            .apply(InstagramApi.fn, arguments);
+    },
+
+    media: function () {
+        return InstagramApi.fn._getUserMedia
+            .apply(InstagramApi.fn, arguments);
+    }
+};
 
 (function (module, $) {
     module.exports = InstagramApi;

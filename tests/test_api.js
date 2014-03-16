@@ -105,7 +105,7 @@ describe('InstagramApi,', function () {
 
             describe('for getting users stuff,', function () {
                 it('should use the right params in the request', function () {
-                    api.getUserInfo('userid', 'accesstoken');
+                    api._getUserInfo('userid', 'accesstoken');
 
                     assert.equal(!!$.ajax.called, true);
                     assert.equal($.ajax.getCall(0).args[0].url,
