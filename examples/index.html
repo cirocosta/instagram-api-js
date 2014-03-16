@@ -24,20 +24,20 @@
      * @return {String}      Cookie value if found. Empty string
      * otherwise.
      */
-    function getCookie (name) {
+    function getCookie(name) {
+        var cookieValue = null;
         if (document.cookie && document.cookie != '') {
             var cookies = document.cookie.split(';');
-            var N = cookies.length;
-            for (var i = 0; i < N; i++) {
-                var cookie = $.trim(cookies[i]);
-
-                if (cookie.substring(0, name.length + 1) === (name + "=")) {
-                    return
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue =
                         decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
             }
         }
-        return;
+        return cookieValue;
     }
 
     /**
@@ -46,9 +46,11 @@
      * @param {String} value Cookie value
      */
     function setCookie (name, value) {
+        var cookie = name + "=" + value;
         if (document.cookie) {
-            document.cookie = name + "=" + value;
+            document.cookie = cookie
         }
+        return cookie;
     }
 
     /**
@@ -104,7 +106,7 @@
 
             $('.cool-button').click(function (e) {
 
-                // wow! The user wants to
+                // wow! The user wants to log in
 
                 var center = {
                     x: $(window).width()/2,
@@ -127,7 +129,6 @@
 
                 var interval = setInterval(function () {
                     if (popupWin.closed) {
-                        alert('closed');
                         clearInterval(interval);
                     }
                 }, 2000);
