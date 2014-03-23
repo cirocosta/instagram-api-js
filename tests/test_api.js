@@ -26,7 +26,6 @@ var assert = require('assert');
 // remember that the order of the params of methods that checks for
 // equalitty is (ACTUAL, EXPECTED). Don't mess up (◕‿◕)
 
-
 describe('sanity', function () {
     it('should go well', function () {
         assert.equal(!!typeof(InstagramApi), true);
@@ -111,6 +110,18 @@ describe('InstagramApi,', function () {
                     assert.equal($.ajax.getCall(0).args[0].url,
                                  'https://api.instagram.com/v1/users/userid/?access_token=accesstoken');
                 });
+            });
+        });
+
+        describe('when using the `user` wrapper', function () {
+            var mock;
+
+            beforeEach(function () {
+                mock = sinon.mock(api);
+            });
+
+            afterEach(function () {
+                mock.restore();
             });
         });
     });

@@ -117,3 +117,35 @@ describe('testing ajax', function () {
     });
 
 });
+
+//////////////////
+// TESTING MOCK //
+//////////////////
+
+var Api = function (name) {
+    this.name = name;
+};
+
+Api.prototype.metodo = function() {
+    return this.name;
+};
+
+Api.prototype.reveal = function () {
+    return this.metodo();
+}
+
+describe('mocking bird', function () {
+
+    it('mocking bird', function () {
+        var api = new Api('wow');
+        var mock = sinon.mock(api);
+        var expectation = mock.expects('metodo').once();
+
+        api.reveal();
+        expectation.verify();
+    });
+});
+
+
+
+

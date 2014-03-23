@@ -47,7 +47,6 @@ InstagramApi.fn = InstagramApi.prototype = {
 
     BASE_URL: 'https://api.instagram.com/v1/',
 
-
     /**
      * Generates the full path to the corrent endpoint. Notice that it
      * is not ready to go as it is not formed with the arguments it
@@ -115,6 +114,10 @@ InstagramApi.fn = InstagramApi.prototype = {
     }
 };
 
+
+//////////////
+//  Wrapper //
+//////////////
 
 /**
  * Wrapper for the functions that regards the User
