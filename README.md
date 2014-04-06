@@ -1,6 +1,6 @@
 # Instagram API [![Build Status](https://travis-ci.org/cirocosta/instagram-api-js.png?branch=master)](https://travis-ci.org/cirocosta/instagram-api-js)
 
-> Javascript API for dealing with Instagram
+> Tiny Javascript Instagram API. Let's you create plugable structures which interact with Instagram
 
 ## Quick Use
 

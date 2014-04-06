@@ -84,33 +84,35 @@ InstagramApi.fn = InstagramApi.prototype = {
      *                              fetch the info.
      * @param  {String} accessToken the accessToken for the
      *                              authenticated user
-     * @param  {Object} options     a options object for the $.ajax.
+     * @param  {Function} cb          a function  for the $.ajax
+     *                                callback.
      * @return {$.Deferred}         a deferred object.
      */
-    _getUserInfo: function (userId, accessToken, options) {
+    _getUserInfo: function (userId, accessToken, cb) {
 
         if (!(userId && accessToken)) throw new Error(ERRORS.no_uid_at);
 
         return $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
             url: this._buildPath('user.info')
                         .replace(/USERID/, userId)
                         .replace(/ACCESSTOKEN/, accessToken),
-            type: 'GET',
-            contentType: 'text/plain',
-            xhrFields: {
-                withCredentials: false
-            }
-        }, options);
+            success: cb
+        });
     },
 
-    _getUserMedia: function (userId, accessToken, options) {
+    _getUserMedia: function (userId, accessToken, cb) {
         if (!(userId && accessToken)) throw new Error(ERRORS.no_uid_at);
 
         return $.ajax({
+            type: 'GET',
+            dataType: 'jsonp',
             url: this._buildPath('user.media')
                         .replace(/USERID/, userId)
                         .replace(/ACCESSTOKEN/, accessToken),
-        }, options);
+            success: cb
+        });
     }
 };
 
