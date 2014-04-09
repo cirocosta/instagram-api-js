@@ -102,7 +102,7 @@ describe('InstagramApi,', function () {
                 $.ajax.restore();
             });
 
-            describe('for getting users stuff,', function () {
+            describe('for getting users info,', function () {
                 it('should use the right params in the request', function () {
                     api._getUserInfo('userid', 'accesstoken');
 
@@ -111,18 +111,17 @@ describe('InstagramApi,', function () {
                                  'https://api.instagram.com/v1/users/userid/?access_token=accesstoken');
                 });
             });
-        });
 
-        describe('when using the `user` wrapper', function () {
-            var mock;
+            describe('for getting users media,', function () {
+                it('should use the righ params in the request', function () {
+                    api._getUserMedia('userid', 'accesstoken');
 
-            beforeEach(function () {
-                mock = sinon.mock(api);
-            });
-
-            afterEach(function () {
-                mock.restore();
+                    assert.equal(!!$.ajax.called, true);
+                    assert.equal($.ajax.getCall(0).args[0].url,
+                                 'https://api.instagram.com/v1/users/userid/media/recent/?access_token=accesstoken');
+                });
             });
         });
+
     });
 });
