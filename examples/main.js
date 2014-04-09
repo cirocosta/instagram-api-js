@@ -57,6 +57,36 @@ function getQueryString () {
         : '';
 }
 
+/**
+ * Inserts some photos to a UL jquery element
+ * @param  {jquery obj} list   a UL jquery obj
+ * @param  {array} photos array of instagram photo obj
+ * @return {jquery obj}        the result UL jquery elem with the images
+ *                             appended
+ */
+var insertPhotos = function (list, photos) {
+    var photosLi = '';
+
+    for (var i in photos) {
+        var photo = photos[i];
+        var li;
+
+        li = '<li><img src="' + photo.images.thumbnail.url +
+            '" data-std-photo="' + photo.images.standard_resolution.url +
+            '"></li>';
+
+        photosLi += li;
+    }
+
+    return list.append(photosLi);
+};
+
+var getAndAppendMidia = function (data) {
+    // NOT TESTABLE. Don't follow this messy way!
+    insertPhotos($('ul'), data.data);
+    return data;
+};
+
 
 ////////////////////
 // MAIN EXECUTION //
@@ -67,6 +97,7 @@ $(function () {
     'use strict';
 
     var hashValue = getHash();
+    var currentMedia = null;
 
     if (hashValue) {
 
@@ -124,9 +155,18 @@ $(function () {
                     api.user.info('self', getCookie('atig'), function (data) {
                         console.log(data);
                     });
+
                     api.user.media('self', getCookie('atig'), function (data) {
-                        console.log(data);
+                        currentMedia = getAndAppendMidia(data);
                     });
+
+                    $('.btn-next')
+                        .show()
+                        .click(function (ev) {
+                            api.getNextPage(currentMedia, function (data) {
+                                currentMedia = getAndAppendMidia(data);
+                            });
+                        });
                 }
             }, 2000);
 

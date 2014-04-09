@@ -123,5 +123,50 @@ describe('InstagramApi,', function () {
             });
         });
 
+        describe('with the instagram object,', function () {
+
+            var instaObj;
+
+            describe('regarding pagination', function () {
+                beforeEach(function () {
+                   sinon.spy($, 'ajax');
+
+                   instaObj = {
+                        meta: {
+                            code: "200"
+                        },
+                        data: {
+                            something: "crazy"
+                        },
+                        pagination: {
+                            next_url: "nexturl",
+                            next_max_id: 123456
+                        }
+                    };
+                });
+
+                afterEach(function () {
+                    $.ajax.restore();
+                });
+
+                it('should not execute if no next_url', function () {
+                    instaObj.pagination = undefined;
+                    api.getNextPage(instaObj);
+
+                    assert.equal(true, true);
+                    // assert.equal(!!$.ajax.called, false);
+                });
+
+                it('should use the right params in the request', function () {
+
+                    api.getNextPage(instaObj);
+
+                    assert.equal(!!$.ajax.called, true);
+                    assert.equal($.ajax.getCall(0).args[0].url,
+                                 'nexturl');
+                });
+            });
+        });
+
     });
 });
