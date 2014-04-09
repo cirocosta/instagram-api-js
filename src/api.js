@@ -102,6 +102,16 @@ InstagramApi.fn = InstagramApi.prototype = {
         });
     },
 
+    /**
+     * Fetcher user media.
+     * @param  {String} userId      the ID of the user that you want to
+     *                              fetch the info.
+     * @param  {String} accessToken the accessToken for the
+     *                              authenticated user
+     * @param  {Function} cb          a function  for the $.ajax
+     *                                callback.
+     * @return {$.Deferred}         a deferred object.
+     */
     _getUserMedia: function (userId, accessToken, cb) {
         if (!(userId && accessToken)) throw new Error(ERRORS.no_uid_at);
 
@@ -113,6 +123,27 @@ InstagramApi.fn = InstagramApi.prototype = {
                         .replace(/ACCESSTOKEN/, accessToken),
             success: cb
         });
+    },
+
+    /**
+     * Makes a request for the next objects. If no more, doesn't make
+     * it.
+     * @param  {obj}   obj instagram object
+     * @param  {Function} cb  callback function for success
+     * @return {obj|undefined}       obj if has next_url, otherwise,
+     *                                   undefined
+     */
+    getNextPage: function (obj, cb) {
+        if (obj && obj.pagination && obj.pagination.next_url) {
+            return $.ajax({
+                type: 'GET',
+                dataType: 'jsonp',
+                url: obj.pagination.next_url,
+                success: cb
+            });
+        }
+
+        return;
     }
 };
 
