@@ -4,6 +4,7 @@
   "description": "Instagram's api for the browser and node w/ jquery",
   "main": "src/api.js",
   "scripts": {
+    "postinstall": "bower install",
     "test": "mocha tests -R nyan"
   },
   "author": "Ciro S. Costa",
