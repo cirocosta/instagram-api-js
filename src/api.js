@@ -99,6 +99,19 @@
             });
         },
 
+        _getUserFeed: function (accessToken, cb) {
+
+            if (!accessToken) throw new Error(ERRORS.no_uid_at);
+
+            return $.ajax({
+                type: 'GET',
+                dataType: 'jsonp',
+                url: this._buildPath('user.feed')
+                            .replace(/ACCESSTOKEN/, accessToken),
+                success: cb
+            });
+        },
+
         /**
          * Fetcher user media.
          * @param  {String} userId      the ID of the user that you want to

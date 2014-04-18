@@ -102,7 +102,7 @@ describe('InstagramApi,', function () {
                 $.ajax.restore();
             });
 
-            describe('for getting users info,', function () {
+            describe('for getting USERS INFO,', function () {
                 it('should use the right params in the request', function () {
                     api._getUserInfo('userid', 'accesstoken');
 
@@ -112,8 +112,8 @@ describe('InstagramApi,', function () {
                 });
             });
 
-            describe('for getting users media,', function () {
-                it('should use the righ params in the request', function () {
+            describe('for getting USERS MEDIA,', function () {
+                it('should use the right params in the request', function () {
                     api._getUserMedia('userid', 'accesstoken');
 
                     assert.equal(!!$.ajax.called, true);
@@ -121,6 +121,18 @@ describe('InstagramApi,', function () {
                                  'https://api.instagram.com/v1/users/userid/media/recent/?access_token=accesstoken');
                 });
             });
+
+            describe('for getting USERS FEED,', function () {
+                it('should use the right params in the request', function () {
+                    api._getUserFeed('accesstoken');
+
+                    assert.equal(!!$.ajax.called, true);
+                    assert.equal($.ajax.getCall(0).args[0].url,
+                                 'https://api.instagram.com/v1/users/self/feed?access_token=accesstoken');
+                });
+            });
+
+
         });
 
         describe('with the instagram object,', function () {
