@@ -36,6 +36,7 @@ describe('InstagramApi,', function () {
 
     var clientId = 'clientId';
     var redirUri = 'redirUri';
+    var basePath = 'https://api.instagram.com/v1/';
 
     it('should initialize with args', function () {
         assert.throws(function () {
@@ -65,8 +66,7 @@ describe('InstagramApi,', function () {
 
         describe('when building path,', function () {
             it('should build user info', function () {
-                var expected = 'https://api.instagram.com/v1/' +
-                    'users/USERID/' +
+                var expected = basePath + 'users/USERID/' +
                     '?access_token=ACCESSTOKEN';
                 var actual = api._buildPath('user.info');
 
@@ -74,19 +74,22 @@ describe('InstagramApi,', function () {
             });
 
             it('should build user feed', function () {
-                var expected = 'https://api.instagram.com/v1/' +
-                    'users/self/feed' +
-                    '?access_token=ACCESSTOKEN';
+                var expected = basePath + 'users/self/feed';
                 var actual = api._buildPath('user.feed');
 
                 assert.strictEqual(actual, expected);
             });
 
             it('should build user media', function () {
-                var expected = 'https://api.instagram.com/v1/' +
-                    'users/USERID/media/recent/' +
-                    '?access_token=ACCESSTOKEN';
+                var expected = basePath + 'users/USERID/media/recent';
                 var actual = api._buildPath('user.media');
+
+                assert.strictEqual(actual, expected);
+            });
+
+            it('should build user media liked', function () {
+                var expected = basePath + 'users/self/media/liked';
+                var actual = api._buildPath('user.media.liked');
 
                 assert.strictEqual(actual, expected);
             });
@@ -102,25 +105,70 @@ describe('InstagramApi,', function () {
                 $.ajax.restore();
             });
 
-            describe('for getting users info,', function () {
+            describe('for getting USERS INFO,', function () {
                 it('should use the right params in the request', function () {
                     api._getUserInfo('userid', 'accesstoken');
 
                     assert.equal(!!$.ajax.called, true);
                     assert.equal($.ajax.getCall(0).args[0].url,
-                                 'https://api.instagram.com/v1/users/userid/?access_token=accesstoken');
+                                 basePath +
+                                 'users/userid/?access_token=accesstoken');
                 });
             });
 
-            describe('for getting users media,', function () {
-                it('should use the righ params in the request', function () {
+            describe('for getting USERS MEDIA,', function () {
+                it('should use the right params in the request', function () {
                     api._getUserMedia('userid', 'accesstoken');
 
                     assert.equal(!!$.ajax.called, true);
                     assert.equal($.ajax.getCall(0).args[0].url,
-                                 'https://api.instagram.com/v1/users/userid/media/recent/?access_token=accesstoken');
+                                 basePath +
+                                 'users/userid/media/recent?access_token=accesstoken');
                 });
             });
+
+            describe('for getting USERS FEED,', function () {
+                it('should use the right params in the request', function () {
+                    api._getUserFeed('accesstoken');
+
+                    assert.equal(!!$.ajax.called, true);
+                    assert.equal($.ajax.getCall(0).args[0].url,
+                                 basePath +
+                                 'users/self/feed?access_token=accesstoken');
+                });
+
+                it('should use deal gracefully w options', function () {
+                    api._getUserFeed({access_token: 'accesstoken', count: 10});
+
+                    assert.equal(!!$.ajax.called, true);
+                    assert.equal($.ajax.getCall(0).args[0].url,
+                                 basePath +
+                                 'users/self/feed?access_token=accesstoken&count=10');
+                });
+            });
+
+            describe('for getting USERS MEDIA LIKED,', function () {
+                it('should use the right params in the request', function () {
+                    api._getUserMediaLiked('accesstoken');
+
+                    assert.equal(!!$.ajax.called, true);
+                    assert.equal($.ajax.getCall(0).args[0].url,
+                                 basePath +
+                                 'users/self/media/liked?access_token=accesstoken');
+                });
+
+                it('should use deal gracefully w options', function () {
+                    api._getUserMediaLiked({access_token: 'accesstoken', count: 10});
+
+                    assert.equal(!!$.ajax.called, true);
+                    assert.equal($.ajax.getCall(0).args[0].url,
+                                 basePath +
+                                 'users/self/media/liked?access_token=accesstoken&count=10');
+                });
+
+            });
+
+
         });
 
         describe('with the instagram object,', function () {
